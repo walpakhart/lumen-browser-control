@@ -13,34 +13,23 @@ started debugging this browser"** banner. This is **unavoidable** for any
 `chrome.debugger` extension and is the safe, sanctioned API. It can only be
 removed by forking/bundling Chromium (out of scope).
 
-## Stable extension ID
+## Extension ID
 
-The `"key"` field in `manifest.json` pins a **deterministic extension ID** so
-the unpacked dev build and a future Web Store build share one ID
-(`cdnlimpamjkbdhplioabiemplocidbld`). That ID is what Lumen's auto-install
-(phase 4) uses as the External Extensions JSON filename.
+The Chrome Web Store assigns the stable ID `pembgigbalnkbfndjgbhlanmepbeaobd`
+on publish. That ID is what Lumen's auto-install uses as the External Extensions
+JSON filename (`src-tauri/src/install.rs::EXT_ID`).
 
-### Regenerating the key (only if you must rotate identity)
-
-```bash
-# private key — keep OUT of the bundle (repo-root extension-key.pem, gitignored)
-openssl genrsa 2048 > extension-key.pem
-# value for manifest.json "key":
-openssl rsa -in extension-key.pem -pubout -outform DER | base64 | tr -d '\n'
-# derived extension ID (first 32 hex of sha256(pubkey DER), mapped 0-9a-f -> a-p):
-openssl rsa -in extension-key.pem -pubout -outform DER \
-  | openssl dgst -sha256 -binary | xxd -p -c32 | head -c32 | tr '0-9a-f' 'a-p'
-```
-
-The private key is only needed to self-sign a `.crx`; unpacked dev loading
-derives the ID from the public `"key"` alone.
+The Web Store rejects a manifest `"key"`, so the store-assigned ID is the source
+of truth — there is no self-signed deterministic key.
 
 ## Load unpacked (dev)
 
 1. Open `chrome://extensions`.
 2. Toggle **Developer mode** (top-right).
 3. **Load unpacked** → select this `extension/` directory.
-4. Confirm the ID is `cdnlimpamjkbdhplioabiemplocidbld`.
+
+Note: an unpacked dev build gets a different, locally-derived ID than the Web
+Store ID above; it won't match `EXT_ID`. Dev loading is for protocol testing only.
 
 Until the Lumen WS bridge (phase 2) is running, the service worker just retries
 the connection on a backoff — that's expected; check the service-worker console
