@@ -1,0 +1,10 @@
+# private signing key — never commit
+extension-key.pem
+*.pem
+
+# build artifacts
+*.zip
+*.crx
+
+# macOS
+.DS_Store
