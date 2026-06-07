@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Lumen Browser Control",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lets Lumen drive your real Chrome tab (read, click, scroll) over the DevTools Protocol via a local connection.",
   "background": {
     "service_worker": "sw.js",
@@ -12,7 +12,7 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": ["debugger", "tabs"],
+  "permissions": ["debugger", "tabs", "alarms"],
   "host_permissions": ["http://127.0.0.1/*", "https://127.0.0.1/*"],
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzFc0JaiMA9msl+dLZ3XoKDtJDg36zM38waGmO1f9P9Ay1AXPvQ1EFOGQ0VuvmTFBu+w5aXr14dCZPJ4Tg2MYDyLPhJCiXv1hIsHxoCU0fq+ue4wxXWeihRcE2CIXz3ANMVtpq2oO2ZPjDkwEiWUC62EpEaaOFzSrUfGwFiLM90G1geIRTJNSJsoOBGp8T+Q3BuTc4NqfD4ZH68DwCuxOykBAw67PymV73HM+bRLnKhWudKMTvI4E4nLGxF8JPwGSH3KH3OCFrtenvE9VHYc34G7kECo0vt5+7b+5x9RCY1QgdrlfNZZLGconXCElLtSArP77rBaf5A8K9R2YTDJnAQIDAQAB"
 }
